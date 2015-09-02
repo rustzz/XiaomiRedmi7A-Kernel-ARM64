@@ -15,3 +15,9 @@ config PRONTO_WLAN
 	  Add support for the Qualcomm Atheros Pronto WLAN module
 
 endif # CFG80211 && WCNSS_CORE_PRONTO
+
+config QCOM_TDLS
+	bool "Enable TDLS feature"
+	default n
+
+endif # PRIMA_WLAN || PRONTO_WLAN
