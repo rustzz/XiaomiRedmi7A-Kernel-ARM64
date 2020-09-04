@@ -35,4 +35,3 @@ obj-$(CONFIG_CPU_FREQ_GOV_DARKNESSSCHED) += cpufreq_darknesssched.o
 obj-$(CONFIG_SCHED_CORE_CTL) += core_ctl.o
 obj-$(CONFIG_PSI) += psi.o
 obj-$(CONFIG_CPU_FREQ_GOV_PIXEL_SCHEDUTIL) += cpufreq_pixel_schedutil.o
-obj-$(CONFIG_CPU_FREQ_GOV_PIXEL_SMURFUTIL) += cpufreq_pixel_smurfutil.o
