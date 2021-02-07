@@ -77,7 +77,7 @@ EXPORT_SYMBOL(memory_cgrp_subsys);
 
 struct mem_cgroup *root_mem_cgroup __read_mostly;
 
-#define MEM_CGROUP_RECLAIM_RETRIES	5
+#define MEM_CGROUP_RECLAIM_RETRIES	1
 
 /* Socket memory accounting disabled? */
 static bool cgroup_memory_nosocket;
