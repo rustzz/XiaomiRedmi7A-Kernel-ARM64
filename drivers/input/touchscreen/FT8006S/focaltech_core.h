@@ -154,7 +154,7 @@ struct fts_ts_data {
 	struct work_struct fwupg_work;
 	struct delayed_work esdcheck_work;
 	struct delayed_work prc_work;
-	struct work_struct resume_work;
+	struct work_struct ft8006s_resume_work;
 	struct completion dev_pm_suspend_completion;
 	struct ftxxxx_proc proc;
 	spinlock_t irq_lock;
