@@ -21,7 +21,7 @@
 #include <linux/freezer.h>
 #include <linux/page_owner.h>
 #include <linux/psi.h>
-#include <uapi/linux/sched/types.h>
+#include <linux/sched.h>
 #include "internal.h"
 
 #ifdef CONFIG_COMPACTION

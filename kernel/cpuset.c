@@ -135,6 +135,7 @@ struct cpuset {
 	int relax_domain_level;
 };
 
+#ifdef CONFIG_CPUSET_ASSIST
 struct cs_target {
 	const char *name;
 	char *cpus;
