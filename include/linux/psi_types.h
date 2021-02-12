@@ -14,7 +14,7 @@ enum psi_task_count {
 	NR_IOWAIT,
 	NR_MEMSTALL,
 	NR_RUNNING,
-	NR_PSI_TASK_COUNTS = 3,
+	NR_PSI_TASK_COUNTS = 4,
 };
 
 /* Task state bitmasks */
