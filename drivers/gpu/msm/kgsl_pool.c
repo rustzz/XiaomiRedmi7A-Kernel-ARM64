@@ -100,6 +100,10 @@ _kgsl_pool_get_page(struct kgsl_page_pool *pool)
 	node = llist_del_first(&pool->page_list);
 	spin_unlock(&pool->list_lock);
 
+	if (node) {
+		atomic_dec(&pool->page_count);
+		p = container_of((struct list_head *)node, typeof(*p), lru);
+	}
 	return p;
 }
 
