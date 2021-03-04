@@ -38,9 +38,6 @@ jobs:
       - restore_cache:
           keys:
             - v2-toolchains-clang-
-      - restore_cache:
-          keys:
-            - v3-toolchains-gcc-
       - run:
           name: Cloning toolchains
           command: |
@@ -58,17 +55,10 @@ jobs:
            else
             download_clang $clang_revision
            fi
-           git -C "aarch64-linux-android-4.9" pull --rebase || git clone  https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 --depth=1 --single-branch --branch=pie-release
-           git -C "arm-linux-androideabi-4.9" pull --rebase || git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 --depth=1 --single-branch --branch=pie-release
       - save_cache:
           key: v2-toolchains-clang-{{ checksum "~/project/proton-clang-master/last_proton" }}
           paths:
             - ~/project/proton-clang-master
-      - save_cache:
-          key: v3-toolchains-gcc-{{ checksum "~/project/aarch64-linux-android-4.9/.git/refs/heads/pie-release" }}-{{ checksum "~/project/arm-linux-androideabi-4.9/.git/refs/heads/pie-release" }}
-          paths:
-            - ~/project/aarch64-linux-android-4.9
-            - ~/project/arm-linux-androideabi-4.9
       - restore_cache:
           keys:
             - v2-compiler-cache-{{ .Branch }}-{{ .Revision }}
@@ -89,13 +79,12 @@ jobs:
           command: |
            export ARCH=arm64 && export SUBARCH=arm64 && export DTC_EXT=dtc
            make O=out ARCH=arm64 cherry-pine_defconfig
-           export PATH="$(pwd)/proton-clang-master/bin:$(pwd)/aarch64-linux-android-4.9/bin:$(pwd)/arm-linux-androideabi-4.9/bin:${PATH}"
+           export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
                                  ARCH=arm64 \
                                  CC="ccache clang" \
-                                 CLANG_TRIPLE=aarch64-linux-gnu- \
-                                 CROSS_COMPILE=aarch64-linux-android- \
-                                 CROSS_COMPILE_ARM32=arm-linux-androideabi-
+                                 CROSS_COMPILE=aarch64-linux-gnu- \
+                                 CROSS_COMPILE_ARM32=arm-linux-gnueabi-
            aarch64-linux-gnu-strip --strip-unneeded --strip-debug out/drivers/staging/prima/wlan.ko
            out/scripts/sign-file sha512 out/certs/signing_key.pem out/certs/signing_key.x509 out/drivers/staging/prima/wlan.ko
            cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/pine/modules/vendor/lib/modules/pronto_wlan.ko
@@ -106,13 +95,12 @@ jobs:
           command: |
            export ARCH=arm64 && export SUBARCH=arm64 && export DTC_EXT=dtc
            make O=out ARCH=arm64 cherry-olive_defconfig
-           export PATH="$(pwd)/proton-clang-master/bin:$(pwd)/aarch64-linux-android-4.9/bin:$(pwd)/arm-linux-androideabi-4.9/bin:${PATH}"
+           export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
                                  ARCH=arm64 \
                                  CC="ccache clang" \
-                                 CLANG_TRIPLE=aarch64-linux-gnu- \
-                                 CROSS_COMPILE=aarch64-linux-android- \
-                                 CROSS_COMPILE_ARM32=arm-linux-androideabi-
+                                 CROSS_COMPILE=aarch64-linux-gnu- \
+                                 CROSS_COMPILE_ARM32=arm-linux-gnueabi-
            aarch64-linux-gnu-strip --strip-unneeded --strip-debug out/drivers/staging/prima/wlan.ko
            out/scripts/sign-file sha512 out/certs/signing_key.pem out/certs/signing_key.x509 out/drivers/staging/prima/wlan.ko
            cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/olive/modules/vendor/lib/modules/pronto_wlan.ko
