@@ -77,7 +77,7 @@ jobs:
       - run:
           name: Building pine target
           command: |
-           export ARCH=arm64 && export SUBARCH=arm64 && export DTC_EXT=dtc
+           export ARCH=arm64 && export SUBARCH=arm64
            make O=out ARCH=arm64 cherry-pine_defconfig
            export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
@@ -93,7 +93,7 @@ jobs:
       - run:
           name: Building olive target
           command: |
-           export ARCH=arm64 && export SUBARCH=arm64 && export DTC_EXT=dtc
+           export ARCH=arm64 && export SUBARCH=arm64
            make O=out ARCH=arm64 cherry-olive_defconfig
            export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
