@@ -29,12 +29,8 @@ ramdisk_compression=auto;
 . tools/ak3-core.sh;
 
 # Extract needed kernel binaries depending on device
-case "$(getprop ro.product.device 2>/dev/null)" in
-    pine) TARGET=pine;;
-    olive|olivelite|olivewood) TARGET=olive;;
-esac
-tools/7za x -y kernel-binaries.7z $TARGET/*
-(cd $TARGET && tar c .)|(cd . && tar xf -) && rm -r $TARGET
+TARGET=$(getprop ro.product.device 2>/dev/null | cut -c -5)
+tools/7za e kernel-binaries.7z -so "$TARGET" > Image.gz-dtb
 
 ## AnyKernel install
 split_boot;
