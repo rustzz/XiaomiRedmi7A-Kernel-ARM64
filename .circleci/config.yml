@@ -87,9 +87,7 @@ jobs:
                                  CROSS_COMPILE_ARM32=arm-linux-gnueabi-
            aarch64-linux-gnu-strip --strip-unneeded --strip-debug out/drivers/staging/prima/wlan.ko
            out/scripts/sign-file sha512 out/certs/signing_key.pem out/certs/signing_key.x509 out/drivers/staging/prima/wlan.ko
-           cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/pine/modules/vendor/lib/modules/pronto_wlan.ko
-           cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/pine/modules/system/lib/modules/pronto_wlan.ko
-           cp out/arch/arm64/boot/Image.gz-dtb /tmp/targets-output/pine/
+           cp out/arch/arm64/boot/Image.gz-dtb /tmp/targets-output/pine
       - run:
           name: Building olive target
           command: |
@@ -101,11 +99,7 @@ jobs:
                                  CC="ccache clang" \
                                  CROSS_COMPILE=aarch64-linux-gnu- \
                                  CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-           aarch64-linux-gnu-strip --strip-unneeded --strip-debug out/drivers/staging/prima/wlan.ko
-           out/scripts/sign-file sha512 out/certs/signing_key.pem out/certs/signing_key.x509 out/drivers/staging/prima/wlan.ko
-           cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/olive/modules/vendor/lib/modules/pronto_wlan.ko
-           cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/olive/modules/system/lib/modules/pronto_wlan.ko
-           cp out/arch/arm64/boot/Image.gz-dtb /tmp/targets-output/olive/      
+           cp out/arch/arm64/boot/Image.gz-dtb /tmp/targets-output/olive
       - save_cache:
           key: v2-compiler-cache-{{ .Branch }}-{{ .Revision }}
           paths:
@@ -114,10 +108,12 @@ jobs:
           name: Creating flashable zip
           command: |
            cp out/arch/arm64/boot/dtbo.img AnyKernel3/
+           cp out/drivers/staging/prima/wlan.ko AnyKernel3/modules/vendor/lib/modules/pronto_wlan.ko
+           cp out/drivers/staging/prima/wlan.ko AnyKernel3/modules/system/lib/modules/pronto_wlan.ko
            7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on AnyKernel3/kernel-binaries.7z /tmp/targets-output/*
            mkdir -p /tmp/output
            cd AnyKernel3
-           export zipfile="/tmp/output/CherryKernel_${CIRCLE_BRANCH}_$(date +%Y%m%d-%H%M).zip"
+           export zipfile="/tmp/output/CherryKernel_$(date +%Y%m%d-%H%M).zip"
            zip $zipfile -r *
            curl -F document=@"${zipfile}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}"
       - store_artifacts:
