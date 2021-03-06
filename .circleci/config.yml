@@ -115,7 +115,12 @@ jobs:
            cd AnyKernel3
            export zipfile="/tmp/output/CherryKernel_$(date +%Y%m%d-%H%M).zip"
            zip $zipfile -r *
-           curl -F document=@"${zipfile}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}"
+           FILE_CAPTION=$(cat \<< EOF
+           *Branch:* ${CIRCLE_BRANCH}
+           *Commit:* [$(echo $CIRCLE_SHA1 | cut -c -7)](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/commit/${CIRCLE_SHA1})
+           EOF
+           )
+           curl -F document=@"${zipfile}" -F "caption=${FILE_CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
       - store_artifacts:
           path: /tmp/output
 workflows:
