@@ -70,10 +70,7 @@ jobs:
            mkdir -p ~/project/ccache
            export CCACHE_DIR=~/project/ccache
            ccache -M 500M
-           mkdir -p /tmp/targets-output/pine/modules/system/lib/modules
-           mkdir -p /tmp/targets-output/pine/modules/vendor/lib/modules
-           mkdir -p /tmp/targets-output/olive/modules/system/lib/modules
-           mkdir -p /tmp/targets-output/olive/modules/vendor/lib/modules
+           mkdir -p /tmp/targets-output/
       - run:
           name: Building pine target
           command: |
