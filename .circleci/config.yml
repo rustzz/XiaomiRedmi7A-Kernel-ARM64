@@ -68,13 +68,12 @@ jobs:
           name: Starting build process
           command: |
            mkdir -p ~/project/ccache
-           export CCACHE_DIR=~/project/ccache
-           ccache -M 500M
+           CCACHE_DIR=~/project/ccache ccache -M 500M
            mkdir -p /tmp/targets-output/
       - run:
           name: Building pine target
           command: |
-           export ARCH=arm64 && export SUBARCH=arm64
+           export ARCH=arm64 && export SUBARCH=arm64 && export CCACHE_DIR=~/project/ccache
            make O=out ARCH=arm64 cherry-pine_defconfig
            export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
@@ -88,7 +87,7 @@ jobs:
       - run:
           name: Building olive target
           command: |
-           export ARCH=arm64 && export SUBARCH=arm64
+           export ARCH=arm64 && export SUBARCH=arm64 && export CCACHE_DIR=~/project/ccache
            make O=out ARCH=arm64 cherry-olive_defconfig
            export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
