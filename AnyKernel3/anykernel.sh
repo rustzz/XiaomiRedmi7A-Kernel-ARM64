@@ -31,6 +31,7 @@ ramdisk_compression=auto;
 # Extract needed kernel binaries depending on device
 TARGET=$(getprop ro.product.device 2>/dev/null | cut -c -5)
 tools/7za e kernel-binaries.7z -so "$TARGET" > Image.gz-dtb
+tools/7za e kernel-binaries.7z -so "pronto_wlan.ko" | tee modules/vendor/lib/modules/pronto_wlan.ko modules/system/lib/modules/pronto_wlan.ko
 
 ## AnyKernel install
 split_boot;
