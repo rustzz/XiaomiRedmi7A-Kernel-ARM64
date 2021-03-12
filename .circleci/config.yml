@@ -104,8 +104,7 @@ jobs:
           name: Creating flashable zip
           command: |
            cp out/arch/arm64/boot/dtbo.img AnyKernel3/
-           cp out/drivers/staging/prima/wlan.ko AnyKernel3/modules/vendor/lib/modules/pronto_wlan.ko
-           cp out/drivers/staging/prima/wlan.ko AnyKernel3/modules/system/lib/modules/pronto_wlan.ko
+           cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/pronto_wlan.ko
            7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on AnyKernel3/kernel-binaries.7z /tmp/targets-output/*
            mkdir -p /tmp/output
            cd AnyKernel3
