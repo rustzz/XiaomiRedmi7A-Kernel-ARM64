@@ -963,3 +963,6 @@ CONFIG_UCLAMP_TASK_GROUP=y
 
 # Powersuspend
 CONFIG_POWERSUSPEND=y
+
+# Boeffla's wakelock blocker
+CONFIG_BOEFFLA_WL_BLOCKER=y
