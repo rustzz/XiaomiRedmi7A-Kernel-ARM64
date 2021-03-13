@@ -1170,8 +1170,7 @@ err_unlock:
 		if (!strcmp(task_comm, "google") ||
 			!strcmp(task_comm, "vending:download_ser") ||
 			!strcmp(task_comm, "id.GoogleCamera") ||
-			!strcmp(task_comm, "eaurora.snapcam") ||
-		    !strcmp(task_comm, "ndroid.settings")) {
+			!strcmp(task_comm, "eaurora.snapcam")) {
 			struct task_kill_info *kinfo;
 
 			kinfo = kmalloc(sizeof(*kinfo), GFP_KERNEL);
