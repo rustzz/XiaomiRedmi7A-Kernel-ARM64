@@ -598,6 +598,33 @@ extern struct cpufreq_governor cpufreq_gov_interactive;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SCHED)
 extern struct cpufreq_governor cpufreq_gov_sched;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_sched)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_BLU_SCHEDUTIL)
+extern struct cpufreq_governor cpufreq_gov_blu_schedutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_blu_schedutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_PIXUTIL)
+extern struct cpufreq_governor cpufreq_gov_pixutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_pixutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_BLU_SCHEDUTIL)
+extern struct cpufreq_governor cpufreq_gov_blu_schedutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_blu_schedutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_PIXEL_SCHEDUTIL)
+extern struct cpufreq_governor cpufreq_gov_pixel_schedutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_pixel_schedutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_BLU_SCHEDUTIL)
+extern struct cpufreq_governor cpufreq_gov_blu_schedutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_blu_schedutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_PIXEL_SMURFUTIL)
+extern struct cpufreq_governor cpufreq_gov_pixel_smurfutil;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_pixel_smurfutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_ENERGY_DCFC)
+extern struct cpufreq_governor cpufreq_gov_energy_dcfc;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_energy_dcfc)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_ALUCARDSCHED)
+extern struct cpufreq_governor cpufreq_gov_alucardsched;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_alucardsched)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_DARKNESSSCHED)
+extern struct cpufreq_governor cpufreq_gov_darknesssched;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_darknesssched)
 #endif
 
 static inline bool cpufreq_can_do_remote_dvfs(struct cpufreq_policy *policy)
