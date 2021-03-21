@@ -71,10 +71,10 @@ jobs:
            CCACHE_DIR=~/project/ccache ccache -M 500M
            mkdir -p /tmp/targets-output/
       - run:
-          name: Building pine target
+          name: Building SDM439 target
           command: |
            export ARCH=arm64 && export SUBARCH=arm64 && export CCACHE_DIR=~/project/ccache
-           make O=out ARCH=arm64 cherry-pine_defconfig
+           make O=out ARCH=arm64 cherry-sdm439_defconfig
            export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
            make -j$(nproc --all) O=out \
                                  ARCH=arm64 \
@@ -83,19 +83,10 @@ jobs:
                                  CROSS_COMPILE_ARM32=arm-linux-gnueabi-
            aarch64-linux-gnu-strip --strip-unneeded --strip-debug out/drivers/staging/prima/wlan.ko
            out/scripts/sign-file sha512 out/certs/signing_key.pem out/certs/signing_key.x509 out/drivers/staging/prima/wlan.ko
-           cp out/arch/arm64/boot/Image.gz-dtb /tmp/targets-output/pine
-      - run:
-          name: Building olive target
-          command: |
-           export ARCH=arm64 && export SUBARCH=arm64 && export CCACHE_DIR=~/project/ccache
-           make O=out ARCH=arm64 cherry-olive_defconfig
-           export PATH="$(pwd)/proton-clang-master/bin:${PATH}"
-           make -j$(nproc --all) O=out \
-                                 ARCH=arm64 \
-                                 CC="ccache clang" \
-                                 CROSS_COMPILE=aarch64-linux-gnu- \
-                                 CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-           cp out/arch/arm64/boot/Image.gz-dtb /tmp/targets-output/olive
+           cp out/arch/arm64/boot/dtbo.img AnyKernel3/
+           cp out/drivers/staging/prima/wlan.ko AnyKernel3/modules/vendor/lib/modules/pronto_wlan.ko
+           cp out/drivers/staging/prima/wlan.ko AnyKernel3/modules/system/lib/modules/pronto_wlan.ko
+           cp out/arch/arm64/boot/Image.gz-dtb AnyKernel3/
       - save_cache:
           key: v2-compiler-cache-{{ .Branch }}-{{ .Revision }}
           paths:
@@ -103,13 +94,10 @@ jobs:
       - run:
           name: Creating flashable zip
           command: |
-           cp out/arch/arm64/boot/dtbo.img AnyKernel3/
-           cp out/drivers/staging/prima/wlan.ko /tmp/targets-output/pronto_wlan.ko
-           7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on AnyKernel3/kernel-binaries.7z /tmp/targets-output/*
            mkdir -p /tmp/output
            cd AnyKernel3
            export zipfile="/tmp/output/CherryKernel_$(date +%Y%m%d-%H%M).zip"
-           zip $zipfile -r *
+           7z a -mm=Deflate -mfb=258 -mpass=15 -r $zipfile *
            FILE_CAPTION=$(cat \<< EOF
            *Branch:* ${CIRCLE_BRANCH}
            *Commit:* [$(echo $CIRCLE_SHA1 | cut -c -7)](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/commit/${CIRCLE_SHA1})
