@@ -1,7 +1,2 @@
-ifeq ($(CONFIG_PROJECT_PINE), y)
-    obj-y += stub/ audio/
-    header-y += stub/include/uapi/ audio/include/uapi/
-else
-    obj-y += stub/ audio-olive/
-    header-y += stub/include/uapi/ audio-olive/include/uapi/
-endif
+obj-y += stub/ audio/
+header-y += stub/include/uapi/ audio/include/uapi/
