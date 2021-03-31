@@ -486,8 +486,6 @@ static unsigned int sugov_next_freq_shared(struct sugov_cpu *sg_cpu, u64 time)
 	struct sugov_policy *sg_policy = sg_cpu->sg_policy;
 	struct cpufreq_policy *policy = sg_policy->policy;
 	unsigned long util = 0, max = 1;
-	unsigned int cap_max = SCHED_CAPACITY_SCALE;
-	unsigned int cap_min = 0;
 	unsigned int j;
 
 	/* Initialize clamping range based on caller CPU constraints */
@@ -496,7 +494,6 @@ static unsigned int sugov_next_freq_shared(struct sugov_cpu *sg_cpu, u64 time)
 	for_each_cpu(j, policy->cpus) {
 		struct sugov_cpu *j_sg_cpu = &per_cpu(sugov_cpu, j);
 		unsigned long j_util, j_max;
-		unsigned int j_cap_max, j_cap_min;
 		s64 delta_ns;
 
 		/*
