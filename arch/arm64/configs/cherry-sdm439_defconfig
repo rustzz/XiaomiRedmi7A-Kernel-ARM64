@@ -850,3 +850,6 @@ CONFIG_CPUSET_TOP_APP="0-7"
 
 # Powersuspend
 CONFIG_POWERSUSPEND=y
+
+# Force /dev/urandom
+CONFIG_RANDOM_FORCE_URANDOM=y
