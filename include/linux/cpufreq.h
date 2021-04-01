@@ -607,6 +607,9 @@ extern struct cpufreq_governor cpufreq_gov_blu_schedutil;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_PIXUTIL)
 extern struct cpufreq_governor cpufreq_gov_pixutil;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_pixutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_ENERGY_DCFC)
+extern struct cpufreq_governor energy_dcfc_gov;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_energy_dcfc)
 #endif
 
 /*********************************************************************
