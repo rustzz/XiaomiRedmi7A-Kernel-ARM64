@@ -99,11 +99,11 @@ jobs:
            export zipfile="/tmp/output/CherryKernel_$(date +%Y%m%d-%H%M).zip"
            7z a -mm=Deflate -mfb=258 -mpass=15 -r $zipfile *
            FILE_CAPTION=$(cat \<< EOF
-           *Branch:* ${CIRCLE_BRANCH}
-           *Commit:* [$(echo $CIRCLE_SHA1 | cut -c -7)](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/commit/${CIRCLE_SHA1})
+           <b>Branch:</b> ${CIRCLE_BRANCH}
+           <b>Commit:</b> <a href='https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/commit/${CIRCLE_SHA1}'>$(echo $CIRCLE_SHA1 | cut -c -7)</a>
            EOF
            )
-           curl -F document=@"${zipfile}" -F "caption=${FILE_CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=Markdown"
+           curl -F "document=@${zipfile}" --form-string "caption=${FILE_CAPTION}" "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument?chat_id=${TELEGRAM_CHAT_ID}&parse_mode=HTML"
       - store_artifacts:
           path: /tmp/output
 workflows:
