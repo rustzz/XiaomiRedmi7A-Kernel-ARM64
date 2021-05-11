@@ -99,14 +99,6 @@ function configure_memory_parameters() {
     echo 1 > /proc/sys/vm/watermark_scale_factor
 
     configure_zram_parameters
-
-    echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
-    echo 512 > /sys/block/mmcblk0/queue/read_ahead_kb
-    echo 512 > /sys/block/mmcblk0rpmb/bdi/read_ahead_kb
-    echo 512 > /sys/block/mmcblk0rpmb/queue/read_ahead_kb
-    echo 512 > /sys/block/dm-0/queue/read_ahead_kb
-    echo 512 > /sys/block/dm-1/queue/read_ahead_kb
-    echo 512 > /sys/block/dm-2/queue/read_ahead_kb
 }
 
 bootmode=`getprop ro.bootmode`
