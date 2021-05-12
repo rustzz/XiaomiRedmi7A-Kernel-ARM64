@@ -51,10 +51,7 @@ function configure_memory_parameters() {
     # Set allocstall_threshold to 0 for all targets.
     #
 
-    low_ram=`getprop ro.config.low_ram`
     arch_type=`uname -m`
-    MemTotalStr=`cat /proc/meminfo | grep MemTotal`
-    MemTotal=${MemTotalStr:16:8}
 
     # Calculate vmpressure_file_min as below & set for 64 bit:
     # vmpressure_file_min = last_lmk_bin + (last_lmk_bin - last_but_one_lmk_bin)
@@ -70,14 +67,6 @@ function configure_memory_parameters() {
         echo $vmpres_file_min > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
     else
         echo 53059 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-    fi
-
-    if [ $MemTotal -gt 3145728 ]; then
-        echo "18432,23040,27648,38708,120640,144768" > /sys/module/lowmemorykiller/parameters/minfree
-    elif [ $MemTotal -gt 2097152 ]; then
-        echo "18432,23040,27648,32256,100640,120640" > /sys/module/lowmemorykiller/parameters/minfree
-    else
-        echo "18432,23040,27648,32256,69010,100640" > /sys/module/lowmemorykiller/parameters/minfree
     fi
 
     # Disable adaptive LMK for all targets &
