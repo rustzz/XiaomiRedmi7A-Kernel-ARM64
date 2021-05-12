@@ -53,6 +53,8 @@ function configure_memory_parameters() {
 
     arch_type=`uname -m`
 
+    echo "4689,9378,14067,18756,23445,28134" > /sys/module/lowmemorykiller/parameters/minfree
+
     # Calculate vmpressure_file_min as below & set for 64 bit:
     # vmpressure_file_min = last_lmk_bin + (last_lmk_bin - last_but_one_lmk_bin)
     if [ "$arch_type" == "aarch64" ]; then
