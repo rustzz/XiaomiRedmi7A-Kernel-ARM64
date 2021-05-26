@@ -563,7 +563,7 @@ static ssize_t kgsl_pwrctrl_thermal_pwrlevel_store(struct device *dev,
 
 	pwr = &device->pwrctrl;
 
-	ret = kgsl_sysfs_store(buf, &level);
+	/*ret = kgsl_sysfs_store(buf, &level);
 
 	if (ret)
 		return ret;
@@ -575,9 +575,9 @@ static ssize_t kgsl_pwrctrl_thermal_pwrlevel_store(struct device *dev,
 
 	pwr->thermal_pwrlevel = level;
 
-	/* Update the current level using the new limit */
+	/* Update the current level using the new limit 
 	kgsl_pwrctrl_pwrlevel_change(device, pwr->active_pwrlevel);
-	mutex_unlock(&device->mutex);
+	mutex_unlock(&device->mutex);*/
 
 	return count;
 }
@@ -610,21 +610,21 @@ static ssize_t kgsl_pwrctrl_max_pwrlevel_store(struct device *dev,
 
 	pwr = &device->pwrctrl;
 
-	ret = kgsl_sysfs_store(buf, &level);
+	/*ret = kgsl_sysfs_store(buf, &level);
 	if (ret)
 		return ret;
 
 	mutex_lock(&device->mutex);
 
-	/* You can't set a maximum power level lower than the minimum */
+	/* You can't set a maximum power level lower than the minimum 
 	if (level > pwr->min_pwrlevel)
 		level = pwr->min_pwrlevel;
 
 	pwr->max_pwrlevel = level;
 
-	/* Update the current level using the new limit */
+	/* Update the current level using the new limit 
 	kgsl_pwrctrl_pwrlevel_change(device, pwr->active_pwrlevel);
-	mutex_unlock(&device->mutex);
+	mutex_unlock(&device->mutex);*/
 
 	return count;
 }
@@ -675,11 +675,11 @@ static ssize_t kgsl_pwrctrl_min_pwrlevel_store(struct device *dev,
 	if (device == NULL)
 		return 0;
 
-	ret = kgsl_sysfs_store(buf, &level);
+	/*ret = kgsl_sysfs_store(buf, &level);
 	if (ret)
 		return ret;
 
-	kgsl_pwrctrl_min_pwrlevel_set(device, level);
+	kgsl_pwrctrl_min_pwrlevel_set(device, level);*/
 
 	return count;
 }
@@ -783,11 +783,11 @@ static ssize_t kgsl_pwrctrl_max_gpuclk_store(struct device *dev,
 	if (device == NULL)
 		return 0;
 
-	ret = kgsl_sysfs_store(buf, &val);
+	/*ret = kgsl_sysfs_store(buf, &val);
 	if (ret)
 		return ret;
 
-	kgsl_pwrctrl_max_clock_set(device, val);
+	kgsl_pwrctrl_max_clock_set(device, val);*/
 
 	return count;
 }
@@ -837,7 +837,7 @@ static ssize_t kgsl_pwrctrl_gpuclk_store(struct device *dev,
 
 	pwr = &device->pwrctrl;
 
-	ret = kgsl_sysfs_store(buf, &val);
+	/*ret = kgsl_sysfs_store(buf, &val);
 	if (ret)
 		return ret;
 
@@ -846,7 +846,7 @@ static ssize_t kgsl_pwrctrl_gpuclk_store(struct device *dev,
 	if (level >= 0)
 		kgsl_pwrctrl_pwrlevel_change(device, (unsigned int) level);
 
-	mutex_unlock(&device->mutex);
+	mutex_unlock(&device->mutex);*/
 	return count;
 }
 
@@ -1250,7 +1250,7 @@ static ssize_t kgsl_pwrctrl_min_clock_mhz_store(struct device *dev,
 
 	pwr = &device->pwrctrl;
 
-	ret = kgsl_sysfs_store(buf, &freq);
+	/*ret = kgsl_sysfs_store(buf, &freq);
 	if (ret)
 		return ret;
 
@@ -1258,7 +1258,7 @@ static ssize_t kgsl_pwrctrl_min_clock_mhz_store(struct device *dev,
 	level = _get_nearest_pwrlevel(pwr, freq);
 
 	if (level >= 0)
-		kgsl_pwrctrl_min_pwrlevel_set(device, level);
+		kgsl_pwrctrl_min_pwrlevel_set(device, level);*/
 
 	return count;
 }
@@ -1289,12 +1289,12 @@ static ssize_t kgsl_pwrctrl_max_clock_mhz_store(struct device *dev,
 	if (device == NULL)
 		return 0;
 
-	ret = kgsl_sysfs_store(buf, &val);
+	/*ret = kgsl_sysfs_store(buf, &val);
 	if (ret)
 		return ret;
 
 	val *= 1000000;
-	kgsl_pwrctrl_max_clock_set(device, val);
+	kgsl_pwrctrl_max_clock_set(device, val);*/
 
 	return count;
 }
@@ -1376,7 +1376,7 @@ static ssize_t kgsl_pwrctrl_pwrscale_store(struct device *dev,
 	if (device == NULL)
 		return 0;
 
-	ret = kgsl_sysfs_store(buf, &enable);
+	/*ret = kgsl_sysfs_store(buf, &enable);
 	if (ret)
 		return ret;
 
@@ -1387,7 +1387,7 @@ static ssize_t kgsl_pwrctrl_pwrscale_store(struct device *dev,
 	else
 		kgsl_pwrscale_disable(device, false);
 
-	mutex_unlock(&device->mutex);
+	mutex_unlock(&device->mutex);*/
 
 	return count;
 }
