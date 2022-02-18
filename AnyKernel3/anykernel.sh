@@ -47,6 +47,9 @@ if grep -q "pronto_wlan.ko" $wifi_hal; then
     abort "Unsupported WiFi HAL. Aborting..."
 fi
 
+ui_print "Patching kernel command line for enabling ZSwap..."
+patch_cmdline zswap.enabled zswap.enabled=1
+
 flash_boot;
 flash_dtbo;
 
